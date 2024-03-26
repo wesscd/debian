@@ -5,9 +5,27 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
+username=$(id -u -n 1000)
+builddir=$(pwd)
+
+# Making .config and Moving config files and background to Pictures
+cd $builddir
+mkdir -p /home/$username/.config
+mkdir -p /home/$username/.fonts
+mkdir -p /home/$username/Pictures
+mkdir -p /home/$username/Pictures/backgrounds
+cp -R dotconfig/* /home/$username/.config/
+cp bg.jpg /home/$username/Pictures/backgrounds/
+mv user-dirs.dirs /home/$username/.config
+chown -R $username:$username /home/$username
+
+
 # Atualiza a lista de pacotes e atualiza os pacotes existentes
 sudo apt update
 sudo apt upgrade -y
+
+# Install nala
+apt install nala -y
 
 # Instalação de pacotes essenciais
 sudo apt install -y build-essential gdebi dkms linux-headers-$(uname -r) ffmpeg default-jdk git wget nano vim htop locate p7zip p7zip-full unzip curl cifs-utils flatpak gnome-software-plugin-flatpak 
@@ -44,11 +62,31 @@ sudo snap install spotify
 # Instalação de plugins do GNOME Look
 sudo apt install -y gnome-shell-extensions chrome-gnome-shell ocs-url
 
-# Instalação de temas Nordic-Darker
-sudo apt install -y gnome-shell-extension-prefs gnome-tweaks
-git clone https://github.com/EliverLara/Nordic-Darker.git ~/Downloads/Nordic-Darker
-mkdir -p ~/.themes
-mv ~/Downloads/Nordic-Darker/ ~/.themes/
+# Download Nordic Theme
+cd /usr/share/themes/
+git clone https://github.com/EliverLara/Nordic.git
+
+# Installing fonts
+cd $builddir 
+nala install fonts-font-awesome -y
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip
+unzip FiraCode.zip -d /home/$username/.fonts
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Meslo.zip
+unzip Meslo.zip -d /home/$username/.fonts
+mv dotfonts/fontawesome/otfs/*.otf /home/$username/.fonts/
+chown $username:$username /home/$username/.fonts/*
+
+# Reloading Font
+fc-cache -vf
+# Removing zip Files
+rm ./FiraCode.zip ./Meslo.zip
+
+# Install Nordzy cursor
+git clone https://github.com/alvatip/Nordzy-cursors
+cd Nordzy-cursors
+./install.sh
+cd $builddir
+rm -rf Nordzy-cursors
 
 # Configuração do ambiente de trabalho
 echo "Configurando ambiente de trabalho..."
