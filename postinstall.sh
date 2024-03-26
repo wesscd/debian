@@ -65,7 +65,7 @@ sudo cp -r ThemeGrub.CyberSynchro /boot/grub/themes/CyberSync
 sudo cp /boot/grub/themes/CyberSync/Theme/background.png /home/$username/Pictures/backgrounds/
 
 # Configure o GRUB para usar o tema
-echo 'GRUB_THEME="/boot/grub/themes/CyberSync/theme.txt"' | sudo tee -a /etc/default/grub
+echo 'GRUB_THEME="/boot/grub/themes/CyberSync/Theme/theme.txt"' | sudo tee -a /etc/default/grub
 
 # Atualize o GRUB
 sudo update-grub
