@@ -12,13 +12,13 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 sudo apt install -y neofetch htop 
 
 # Instalação de codecs de áudio e vídeo
-sudo apt install -y ubuntu-restricted-extras
+sudo apt install -y libavcodec-extra gstreamer1.0-libav gstreamer1.0-plugins-ugly gstreamer1.0-vaapi
 
 # Instalação de firmwares para Intel
 sudo apt install -y firmware-linux firmware-linux-nonfree intel-microcode
 
 # Instalação de msfonts
-sudo apt install -y fonts-crosextra-carlito fonts-crosextra-caladea ttf-mscorefonts-installer rar unrar libavcodec-extra gstreamer1.0-libav gstreamer1.0-plugins-ugly gstreamer1.0-vaapi
+sudo apt install -y fonts-crosextra-carlito fonts-crosextra-caladea ttf-mscorefonts-installer rar unrar
 
 # Instalação do Google Chrome
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
