@@ -32,6 +32,15 @@ sudo apt install -y build-essential gdebi dkms linux-headers-$(uname -r) ffmpeg 
 
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
+# Oh my bash
+git clone https://github.com/ohmybash/oh-my-bash.git
+
+cd oh-my-bash
+
+cd tools
+
+./install.sh
+
 # Instalação de utilitários adicionais
 sudo apt install -y neofetch htop 
 
@@ -43,6 +52,21 @@ sudo apt install -y firmware-linux firmware-linux-nonfree intel-microcode
 
 # Instalação de msfonts
 sudo apt install -y fonts-crosextra-carlito fonts-crosextra-caladea ttf-mscorefonts-installer rar unrar
+
+# Baixe o tema do CyberSync
+git clone https://github.com/HenriqueLopes42/ThemeGrub.CyberSynchro.git
+
+# Crie o diretório de temas do GRUB se não existir
+sudo mkdir -p /boot/grub/themes
+
+# Copie os arquivos para o diretório de temas do GRUB
+sudo cp -r ThemeGrub.CyberSynchro /boot/grub/themes/CyberSync
+
+# Configure o GRUB para usar o tema
+echo 'GRUB_THEME="/boot/grub/themes/CyberSync/theme.txt"' | sudo tee -a /etc/default/grub
+
+# Atualize o GRUB
+sudo update-grub
 
 # Instalação do Google Chrome
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
