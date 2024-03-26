@@ -30,7 +30,7 @@ rm google-chrome-stable_current_amd64.deb
 sudo apt install -y snapd
 
 # Instalação do Steam
-sudo snap install -y steam
+sudo snap install steam
 
 # Instalação do Spotify via Snap
 sudo snap install spotify
