@@ -62,6 +62,8 @@ sudo mkdir -p /boot/grub/themes
 # Copie os arquivos para o diretório de temas do GRUB
 sudo cp -r ThemeGrub.CyberSynchro /boot/grub/themes/CyberSync
 
+sudo cp /boot/grub/themes/CyberSync/Theme/background.png /home/$username/Pictures/backgrounds/
+
 # Configure o GRUB para usar o tema
 echo 'GRUB_THEME="/boot/grub/themes/CyberSync/theme.txt"' | sudo tee -a /etc/default/grub
 
@@ -151,8 +153,6 @@ wget -O ~/Downloads/Numix.zip https://github.com/numixproject/numix-icon-theme-c
 unzip -q ~/Downloads/Numix.zip -d ~/.themes
 mv ~/.themes/numix-icon-theme-circle-master ~/.themes/Numix-Circle
 rm ~/Downloads/Numix.zip
-
-bash <(curl -L https://raw.github.com/ohmybash/oh-my-bash/master/tools/install.sh)
 
 echo "Script de pós-instalação concluído! Aproveite seu Debian topzeira da balada!"
 echo "Para customizar seu bash: https://github.com/ohmybash/oh-my-bash/tree/master/themes"
