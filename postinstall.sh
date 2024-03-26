@@ -1,18 +1,24 @@
 #!/bin/bash
 
+if [[ $EUID -ne 0 ]]; then
+  echo "Você precisa estar como ROOT para rodar o script, por favor execute add sudo ao comando" 2>&1
+  exit 1
+fi
+
 # Atualiza a lista de pacotes e atualiza os pacotes existentes
 sudo apt update
 sudo apt upgrade -y
 
 # Instalação de pacotes essenciais
-sudo apt install -y gdebi build-essential dkms linux-headers-$(uname -r) ffmpeg default-jdk git wget nano vim htop locate p7zip p7zip-full unzip curl cifs-utils flatpak gnome-software-plugin-flatpak
+sudo apt install -y build-essential gdebi dkms linux-headers-$(uname -r) ffmpeg default-jdk git wget nano vim htop locate p7zip p7zip-full unzip curl cifs-utils flatpak gnome-software-plugin-flatpak 
+
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 # Instalação de utilitários adicionais
 sudo apt install -y neofetch htop 
 
 # Instalação de codecs de áudio e vídeo
-sudo apt install -y libavcodec-extra gstreamer1.0-libav gstreamer1.0-plugins-ugly gstreamer1.0-vaapi
+sudo apt install -y libavcodec-extra gstreamer1.0-libav gstreamer1.0-plugins-ugly gstreamer1.0-vaapi libx11-dev libxft-dev libxinerama-dev libx11-xcb-dev libxcb-res0-dev
 
 # Instalação de firmwares para Intel
 sudo apt install -y firmware-linux firmware-linux-nonfree intel-microcode
