@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ $EUID -ne 1 ]]; then
+if [[ $EUID -ne 2 ]]; then
   echo "Você precisa estar como ROOT para rodar o script, por favor execute add sudo ao comando" 2>&1
   exit 1
 fi
