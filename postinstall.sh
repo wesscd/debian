@@ -41,6 +41,10 @@ cd tools
 
 ./install.sh
 
+cd ../..
+
+sudo cp .bashrc ~/
+
 # Instalação de utilitários adicionais
 sudo apt install -y neofetch htop 
 
