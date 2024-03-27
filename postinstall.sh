@@ -28,7 +28,7 @@ sudo apt upgrade -y
 apt install nala -y
 
 # Instalação de pacotes essenciais
-sudo apt install -y build-essential gdebi dkms linux-headers-$(uname -r) ffmpeg default-jdk git wget nano vim htop locate p7zip p7zip-full unzip curl cifs-utils flatpak gnome-software-plugin-flatpak 
+sudo apt install -y build-essential gdebi dkms linux-headers-$(uname -r) ffmpeg default-jdk git wget nano vim htop locate p7zip p7zip-full thunderbird unzip curl cifs-utils flatpak gnome-software-plugin-flatpak 
 
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
@@ -43,7 +43,9 @@ cd tools
 
 cd ../..
 
-sudo cp .bashrc ~/
+sudo cp -f .bashrc ~/
+
+source ~/.bashrc
 
 # Instalação de utilitários adicionais
 sudo apt install -y neofetch htop 
@@ -143,12 +145,6 @@ sudo apt install -y blueman pulseaudio-module-bluetooth
 
 # Remoção de pacotes desnecessários
 sudo apt autoremove -y
-
-# Adicionando novos wallpapers e temas
-echo "Baixando novos wallpapers e temas..."
-mkdir -p ~/Pictures/Wallpapers
-wget -P ~/Pictures/Wallpapers/ https://wallpaperaccess.com/full/191581.jpg
-wget -P ~/Pictures/Wallpapers/ https://wallpaperaccess.com/full/271194.jpg
 
 # Baixar e instalar temas de ícones e temas de janelas
 echo "Baixando e instalando temas..."
