@@ -8,15 +8,17 @@ fi
 username=$(id -u -n 1000)
 builddir=$(pwd)
 
+# Diretório de destino para download dos arquivos .deb
+download_dir="$HOME/Downloads"
+
 # Making .config and Moving config files and background to Pictures
 cd $builddir
+
 mkdir -p /home/$username/.config
 mkdir -p /home/$username/.fonts
 mkdir -p /home/$username/Pictures
 mkdir -p /home/$username/Pictures/backgrounds
-cp -R dotconfig/* /home/$username/.config/
-cp bg.jpg /home/$username/Pictures/backgrounds/
-mv user-dirs.dirs /home/$username/.config
+
 chown -R $username:$username /home/$username
 
 
@@ -77,19 +79,44 @@ echo 'GRUB_THEME="/boot/grub/themes/CyberSync/Theme/theme.txt"' | sudo tee -a /e
 sudo update-grub
 
 # Instalação do Google Chrome
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo dpkg -i google-chrome-stable_current_amd64.deb
-sudo apt install -f -y
-rm google-chrome-stable_current_amd64.deb
+chrome_url="https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
+
+# URL para download do Steam
+steam_url="https://repo.steampowered.com/steam/archive/precise/steam_latest.deb"
+
+# URL para download do Spotify
+spotify_url="https://repository-origin.spotify.com/pool/non-free/s/spotify-client/spotify-client_1.1.68.632.g2b11de83-38_amd64.deb"
+
+# Função para baixar os arquivos .deb
+download_deb() {
+    local url=$1
+    local filename=$(basename $url)
+    echo "Baixando $filename..."
+    wget -q --show-progress -O "$download_dir/$filename" "$url"
+}
+
+# Função para instalar os arquivos .deb
+install_deb() {
+    local deb_file=$1
+    echo "Instalando $deb_file..."
+    sudo apt install -y "$deb_file"
+}
+
+# Baixa os arquivos .deb
+download_deb "$chrome_url"
+download_deb "$steam_url"
+download_deb "$spotify_url"
+
+# Instala os pacotes .deb baixados
+install_deb "$download_dir/$(basename $chrome_url)"
+install_deb "$download_dir/$(basename $steam_url)"
+install_deb "$download_dir/$(basename $spotify_url)"
+
+rm *.deb
 
 # Instalação do Snap
 sudo apt install -y snapd
 
-# Instalação do Steam
-sudo snap install steam
-
-# Instalação do Spotify via Snap
-sudo snap install spotify
 
 # Instalação de plugins do GNOME Look
 sudo apt install -y gnome-shell-extensions chrome-gnome-shell ocs-url
