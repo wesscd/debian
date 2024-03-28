@@ -89,7 +89,7 @@ download_deb() {
     local url=$1
     local filename=$(basename $url)
     echo "Baixando $filename..."
-    wget -q --show-progress -O "$download_dir/$filename" "$url"
+    wget $url
 }
 
 # Função para instalar os arquivos .deb
