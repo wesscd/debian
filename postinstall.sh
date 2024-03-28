@@ -94,9 +94,9 @@ download_deb() {
 
 # Função para instalar os arquivos .deb
 install_deb() {
-    #local deb_file=$1
+    local deb_file=$1
     echo "Instalando $deb_file..."
-    sudo dpkg -i $deb_file
+    sudo dpkg -i $builddir/$deb_file
     sudo apt install -f -y
     rm $deb_file
 }
