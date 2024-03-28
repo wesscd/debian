@@ -96,7 +96,7 @@ download_deb() {
 install_deb() {
     local deb_file=$1
     echo "Instalando $deb_file..."
-    sudo dpkg -i $builddir/$deb_file
+    sudo dpkg -i $deb_file
     sudo apt install -f -y
     rm $deb_file
 }
@@ -106,8 +106,8 @@ download_deb "$chrome_url"
 download_deb "$steam_url"
 
 # Instala os pacotes .deb baixados
-install_deb "$download_dir/$(basename $chrome_url)"
-install_deb "$download_dir/$(basename $steam_url)"
+install_deb "$builddir/$(basename $chrome_url)"
+install_deb "$builddir/$(basename $steam_url)"
 
 # Instalação do Snap
 sudo apt install -y snapd
