@@ -86,7 +86,7 @@ steam_url="https://repo.steampowered.com/steam/archive/precise/steam_latest.deb"
 
 # Função para baixar os arquivos .deb
 download_deb() {
-    local url=$1
+    #local url=$1
     local filename=$(basename $url)
     echo "Baixando $filename..."
     wget $url
@@ -94,7 +94,7 @@ download_deb() {
 
 # Função para instalar os arquivos .deb
 install_deb() {
-    local deb_file=$1
+    #local deb_file=$1
     echo "Instalando $deb_file..."
     sudo dpkg -i $deb_file
     sudo apt install -f -y
