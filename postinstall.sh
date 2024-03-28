@@ -84,9 +84,6 @@ chrome_url="https://dl.google.com/linux/direct/google-chrome-stable_current_amd6
 # URL para download do Steam
 steam_url="https://repo.steampowered.com/steam/archive/precise/steam_latest.deb"
 
-# URL para download do Spotify
-spotify_url="https://repository-origin.spotify.com/pool/non-free/s/spotify-client/spotify-client_1.1.68.632.g2b11de83-38_amd64.deb"
-
 # Função para baixar os arquivos .deb
 download_deb() {
     local url=$1
@@ -99,24 +96,28 @@ download_deb() {
 install_deb() {
     local deb_file=$1
     echo "Instalando $deb_file..."
-    sudo apt install -y "$deb_file"
+    sudo dpkg -i $deb_file
+    sudo apt install -f -y
+    rm $deb_file
 }
 
 # Baixa os arquivos .deb
 download_deb "$chrome_url"
 download_deb "$steam_url"
-download_deb "$spotify_url"
 
 # Instala os pacotes .deb baixados
 install_deb "$download_dir/$(basename $chrome_url)"
 install_deb "$download_dir/$(basename $steam_url)"
-install_deb "$download_dir/$(basename $spotify_url)"
-
-rm *.deb
 
 # Instalação do Snap
 sudo apt install -y snapd
 
+# Instalação Spotify
+curl -sS https://download.spotify.com/debian/pubkey_6224F9941A8AA6D1.gpg | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
+
+echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+
+sudo apt-get update && sudo apt-get install spotify-client
 
 # Instalação de plugins do GNOME Look
 sudo apt install -y gnome-shell-extensions chrome-gnome-shell ocs-url
