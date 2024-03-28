@@ -86,7 +86,7 @@ steam_url="https://repo.steampowered.com/steam/archive/precise/steam_latest.deb"
 
 # Função para baixar os arquivos .deb
 download_deb() {
-    #local url=$1
+    local url=$1
     local filename=$(basename $url)
     echo "Baixando $filename..."
     wget $url
